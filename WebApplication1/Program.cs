@@ -72,17 +72,20 @@ builder.Services.AddAuthentication(
 
 var app = builder.Build();
 
+// Middleware para redirecionar para HTTPS
+app.UseHttpsRedirection();
+
+// Middleware de Autenticação e Autorização
+app.UseAuthentication();
+app.UseAuthorization();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
+// Middleware para endpoints da API
 app.MapControllers();
 
 app.Run();
